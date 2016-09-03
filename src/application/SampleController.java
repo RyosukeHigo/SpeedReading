@@ -77,7 +77,8 @@ public class SampleController implements Initializable{
 	        return new Task<Void>() {
 	            protected Void call() {
 	    			Tokenizer tokenizer = Tokenizer.builder().build();
-	    			List<Token> tokens = tokenizer.tokenize(s);
+	    			String text = s.replaceAll("\n", "");
+	    			List<Token> tokens = tokenizer.tokenize(text);
 	    			tmp = "";
 	    			for (Token token : tokens) {
 	    				tmp = tmp + token.getSurfaceForm();
