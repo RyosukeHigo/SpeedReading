@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
       <Button fx:id="plus" layoutX="89.0" layoutY="87.0" mnemonicParsing="false" onAction="#onClikedPlus" text="+" />
@@ -30,16 +29,20 @@
       </HBox>
       <Label layoutY="64.0" text="Min Length" />
       <TextArea fx:id="TextArea1" layoutX="36.0" layoutY="142.0" prefHeight="200.0" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="53.47265625" />
-      <Label layoutX="164.0" layoutY="57.0" text="Speed">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="Speed" layoutX="234.0" layoutY="57.0" prefHeight="30.0" prefWidth="152.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+      <HBox alignment="CENTER" layoutX="164.0" layoutY="47.0" AnchorPane.leftAnchor="164.0" AnchorPane.rightAnchor="199.47265625">
+         <children>
+            <Label layoutX="164.0" layoutY="57.0" text="Speed">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="Speed" layoutX="234.0" layoutY="47.0" prefHeight="30.0" prefWidth="152.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
       <Button fx:id="minus" layoutX="57.0" layoutY="87.0" mnemonicParsing="false" onAction="#onClikedMinus" prefHeight="25.0" prefWidth="25.0" text="-" />
       <Label fx:id="MinLength" layoutX="82.0" layoutY="64.0" text="5" />
    </children>

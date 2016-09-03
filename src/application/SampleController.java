@@ -52,7 +52,7 @@ public class SampleController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		d = new Display();
 		Label1.textProperty().bind(d.messageProperty());
-		Speed.setText(Integer.valueOf(MinLength.getText())*(60*1000)/(650-(int)Slider1.getValue()*6)+"Char/s");
+		Speed.setText(Integer.valueOf(MinLength.getText())*(60*1000)/(650-(int)Slider1.getValue()*6)+"char/min");
 	}
 	static class Display extends Service<Void> {
 		String s;
