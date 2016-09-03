@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <children>
+      <Button fx:id="plus" layoutX="89.0" layoutY="87.0" mnemonicParsing="false" onAction="#onClikedPlus" text="+" />
+      <CheckBox layoutX="483.0" layoutY="79.0" mnemonicParsing="false" text="Keyboard" />
+      <Button fx:id="Button1" layoutX="204.0" layoutY="342.0" mnemonicParsing="false" onAction="#onClicked" prefHeight="25.0" prefWidth="152.0" text="Start" AnchorPane.leftAnchor="221.0" AnchorPane.rightAnchor="198.47265625">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Label id="Label1" fx:id="Label1" alignment="CENTER" layoutX="33.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="44.0">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <HBox layoutX="180.0" layoutY="99.0" prefHeight="17.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="174.47265625">
+         <children>
+            <Label text="SLOW" />
+            <Slider fx:id="Slider1" onMouseDragged="#onDragDetected" value="50.0" />
+            <Label text="FAST" />
+         </children>
+      </HBox>
+      <Label layoutY="64.0" text="Min Length" />
+      <TextArea fx:id="TextArea1" layoutX="36.0" layoutY="142.0" prefHeight="200.0" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="53.47265625" />
+      <Label layoutX="164.0" layoutY="57.0" text="Speed">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="Speed" layoutX="234.0" layoutY="57.0" prefHeight="30.0" prefWidth="152.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="minus" layoutX="57.0" layoutY="87.0" mnemonicParsing="false" onAction="#onClikedMinus" prefHeight="25.0" prefWidth="25.0" text="-" />
+      <Label fx:id="MinLength" layoutX="82.0" layoutY="64.0" text="5" />
+   </children>
+</AnchorPane>
