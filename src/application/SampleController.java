@@ -107,7 +107,6 @@ public class SampleController implements Initializable{
 					System.out.println("ste");
 					final ArrayList<String> TextList = sax.getResult();
 					final ArrayList<Integer> ScoreList = sax.getScore();
-					TextList.get(0);
 					for (int i=0;i<TextList.size();i++) {
 						tmp = TextList.get(i);
 						System.out.println(tmp);
