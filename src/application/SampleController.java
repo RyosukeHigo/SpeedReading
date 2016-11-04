@@ -106,13 +106,16 @@ public class SampleController implements Initializable{
 					}
 					System.out.println("ste");
 					final ArrayList<String> TextList = sax.getResult();
+					final ArrayList<Integer> ScoreList = sax.getScore();
 					TextList.get(0);
 					for (int i=0;i<TextList.size();i++) {
 						tmp = TextList.get(i);
 						System.out.println(tmp);
 						updateMessage(tmp);
+						int l = tmp.length();
+						int s = ScoreList.get(i);
 							try {
-								Thread.sleep((int)(650 - sld.getValue()*6));
+								Thread.sleep((int)(650 - sld.getValue()*6 + l*10 + s*10));
 							} catch (InterruptedException e) {
 								// TODO 自動生成された catch ブロック
 								e.printStackTrace();
