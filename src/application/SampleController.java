@@ -1,5 +1,8 @@
 package application;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,16 +33,23 @@ public class SampleController implements Initializable{
 	@FXML private Label Speed;
 	@FXML private Button test;
 	@FXML private Label MinLength;
-	@FXML private Button plus;
-	@FXML private Button minus;
+	@FXML private Button Random;
 	private Display d;
+	private ArrayList<String> NewsList = new ArrayList<>();
 
 	@FXML
 	public void onClicked(ActionEvent event){
-		d.setString(TextArea1.getText().replaceAll("\n", ""));
+		if(event.getSource() == Button1){
+			d.setString(TextArea1.getText().replaceAll("\n", ""));
+		}else if(event.getSource() == Random){
+			java.util.Random rnd = new java.util.Random();
+			
+			String news = NewsList.get(rnd.nextInt(NewsList.size()));
+			d.setString(news);
+			TextArea1.setText(news);
+		}
 		d.setLabel(Label1);
 		d.setSlider(Slider1);
-		d.setMin(MinLength);
 		d.restart();
 	}
 	@FXML
@@ -57,7 +67,24 @@ public class SampleController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		d = new Display();
+		try{
+			  File file = new File("s0-5.txt");
+			  BufferedReader br = new BufferedReader(new FileReader(file));
+			  
+			  String str;
+			  while((str = br.readLine()) != null){
+				//String tmp = new String(str.getBytes("UTF-8"), "UTF-8");
+			    NewsList.add(str);
+			  }
+
+			  br.close();
+			}catch(FileNotFoundException e){
+			  System.out.println(e);
+			}catch(IOException e){
+			  System.out.println(e);
+			}
 		Label1.textProperty().bind(d.messageProperty());
 		Speed.setText(Integer.valueOf(MinLength.getText())*(60*1000)/(650-(int)Slider1.getValue()*6)+"char/min");
 	}
@@ -75,9 +102,6 @@ public class SampleController implements Initializable{
 		}
 		private void setSlider(Slider sld){
 			this.sld = sld;
-		}
-		private void setMin(Label min){
-			this.min = min;
 		}
 		protected Task<Void> createTask() {
 			return new Task<Void>() {
@@ -104,7 +128,6 @@ public class SampleController implements Initializable{
 						// TODO 自動生成された catch ブロック
 						e1.printStackTrace();
 					}
-					System.out.println("ste");
 					final ArrayList<String> TextList = sax.getResult();
 					final ArrayList<Integer> ScoreList = sax.getScore();
 					for (int i=0;i<TextList.size();i++) {
@@ -113,13 +136,13 @@ public class SampleController implements Initializable{
 						updateMessage(tmp);
 						int l = tmp.length();
 						int s = ScoreList.get(i);
-							try {
-								Thread.sleep((int)(650 - sld.getValue()*6 + l*10 + s*10));
-							} catch (InterruptedException e) {
-								// TODO 自動生成された catch ブロック
-								e.printStackTrace();
-							}
-							//System.out.println(sld.getValue());
+						try {
+							Thread.sleep((int)(600 - sld.getValue()*6 + l*10 + s*10));
+						} catch (InterruptedException e) {
+							// TODO 自動生成された catch ブロック
+							e.printStackTrace();
+						}
+						//System.out.println(sld.getValue());
 					}
 					return null;
 				}
