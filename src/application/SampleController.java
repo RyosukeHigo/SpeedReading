@@ -54,7 +54,7 @@ public class SampleController implements Initializable{
 	}
 	@FXML
 	public void onDragDetected() {
-		Speed.setText(Integer.valueOf(MinLength.getText())*(60*1000)/(650-(int)Slider1.getValue()*6)+"Char/s");
+		Speed.setText(String.valueOf((int)Slider1.getValue()));
 	}
 	@FXML
 	public void onClikedPlus(){
@@ -87,7 +87,7 @@ public class SampleController implements Initializable{
 			  System.out.println(e);
 			}
 		Label1.textProperty().bind(d.messageProperty());
-		Speed.setText(Integer.valueOf(MinLength.getText())*(60*1000)/(650-(int)Slider1.getValue()*6)+"char/min");
+		Speed.setText(String.valueOf((int)Slider1.getValue()));
 	}
 	static class Display extends Service<Void> {
 		String s;
@@ -138,7 +138,7 @@ public class SampleController implements Initializable{
 						int l = tmp.length();
 						int s = ScoreList.get(i);
 						try {
-							Thread.sleep((int)(600 - sld.getValue()*6 + l*10 + s*10));
+							Thread.sleep((int)(540 - sld.getValue()*6 + l*10 + s*10));
 						} catch (InterruptedException e) {
 							// TODO 自動生成された catch ブロック
 							e.printStackTrace();
