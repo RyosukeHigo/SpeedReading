@@ -69,6 +69,7 @@ public class SampleController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		d = new Display();
+		System.setProperty("file.encoding", "UTF8");
 		try{
 			  File file = new File("s0-5.txt");
 			  BufferedReader br = new BufferedReader(new FileReader(file));

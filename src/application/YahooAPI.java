@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -47,9 +49,9 @@ public class YahooAPI {
 		if(utf8 != null){
 			utf8 = URLEncoder.encode(utf8,"UTF8");
 			URL url = new URL(BASE_URI+"?appid="+APP_ID+"&sentence="+utf8);
-			//Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("kaba", 3128));
-			//HttpURLConnection urlconn = (HttpURLConnection)url.openConnection(proxy);
-			HttpURLConnection urlconn = (HttpURLConnection)url.openConnection();
+			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("kaba", 3128));
+			HttpURLConnection urlconn = (HttpURLConnection)url.openConnection(proxy);
+			//HttpURLConnection urlconn = (HttpURLConnection)url.openConnection();
 			urlconn.setRequestMethod("GET");
 			urlconn.setInstanceFollowRedirects(false);
 
