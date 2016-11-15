@@ -3,9 +3,10 @@ package application;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -58,7 +59,7 @@ public class YahooAPI {
 			urlconn.connect();
 
 			BufferedReader reader =
-					new BufferedReader(new InputStreamReader(urlconn.getInputStream()));
+					new BufferedReader(new InputStreamReader(urlconn.getInputStream(),"UTF-8"));
 
 			StringBuffer responseBuffer = new StringBuffer();
 			while (true){
@@ -75,7 +76,7 @@ public class YahooAPI {
 			String response = responseBuffer.toString();
 			//System.out.println(response);
 			File file = new File("test.xml");
-			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"UTF-8")));
 			pw.print(response);
 			pw.close();
 		}
