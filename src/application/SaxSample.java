@@ -15,10 +15,13 @@ import org.xml.sax.helpers.DefaultHandler;
 public class SaxSample extends DefaultHandler{
 	private String tmp = "";
 	private int scr = 0;
+	private int len = 0;
 	private ArrayList<String> result = new ArrayList<String>();
 	private HashMap<String, Integer> df = new HashMap<String, Integer>();
 	private ArrayList<Integer> score = new ArrayList<Integer>();
+	private ArrayList<Integer> textReadLength = new ArrayList<Integer>();
 	private boolean isSurface = false;
+	private boolean isReading = false;
 	SaxSample(){
 		try {
 			File csv = new File("goi.csv"); // CSVデータファイル
@@ -58,6 +61,8 @@ public class SaxSample extends DefaultHandler{
 		//System.out.println("要素開始:" + qName);
 		if(qName.equals("Surface")){
 			isSurface = true;
+		}else if(qName.equals("Reading")){
+			isReading = true;
 		}
 	}
 
@@ -67,14 +72,17 @@ public class SaxSample extends DefaultHandler{
 			int length) {
 
 		//System.out.println("テキストデータ：" + new String(ch, offset, length));
+		String s =  new String(ch, offset, length);
 		if(isSurface){
-			String s =  new String(ch, offset, length);
 			tmp = tmp + s;
 			if(df.containsKey(s)){
 				scr += df.get(s);
 			}else{
 				scr += 6;
 			}
+		}
+		if(isReading){
+			len += s.length();
 		}
 	}
 
@@ -91,6 +99,10 @@ public class SaxSample extends DefaultHandler{
 			tmp = "";
 			score.add(scr);
 			scr = 0;
+			textReadLength.add(len);
+			len = 0;
+		}else if(qName.equals("Reading")){
+			isReading = false;
 		}
 	}
 	//End of Document
@@ -105,6 +117,9 @@ public class SaxSample extends DefaultHandler{
 	}
 	public  ArrayList<Integer> getScore(){
 		return score;
+	}
+	public ArrayList<Integer> getTextReadLength(){
+		return textReadLength;
 	}
 
 }

@@ -9,8 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -28,31 +26,14 @@ public class YahooAPI {
 	YahooAPI(String input){
 		YahooAPI.input = input;
 	}
-//	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException{
-//		Scanner sc = new Scanner(System.in);
-//		try{
-//			String input = sc.next();
-//			String utf8 = new String(input.getBytes("UTF8"), "UTF8");
-//			textAPI(utf8);
-//
-//		}catch(IOException e){
-//			e.printStackTrace();
-//		}
-//		SAXParserFactory spfactory = SAXParserFactory.newInstance();
-//
-//        SAXParser parser = spfactory.newSAXParser();
-//
-//        parser.parse(new File("test.xml"), new SaxSample());
-//	}
-
 	public void textAPI() throws IOException{
 		String utf8 = new String(input.getBytes("UTF8"), "UTF8");
 		if(utf8 != null){
 			utf8 = URLEncoder.encode(utf8,"UTF8");
 			URL url = new URL(BASE_URI+"?appid="+APP_ID+"&sentence="+utf8);
-			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("kaba", 3128));
-			HttpURLConnection urlconn = (HttpURLConnection)url.openConnection(proxy);
-			//HttpURLConnection urlconn = (HttpURLConnection)url.openConnection();
+			//Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("kaba", 3128));
+			//HttpURLConnection urlconn = (HttpURLConnection)url.openConnection(proxy);
+			HttpURLConnection urlconn = (HttpURLConnection)url.openConnection();
 			urlconn.setRequestMethod("GET");
 			urlconn.setInstanceFollowRedirects(false);
 
