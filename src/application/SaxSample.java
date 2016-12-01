@@ -13,7 +13,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class SaxSample extends DefaultHandler{
-	private String tmp = "";
+	private String chunk = "";
 	private int scr = 0;
 	private int len = 0;
 	private ArrayList<String> result = new ArrayList<String>();
@@ -22,6 +22,9 @@ public class SaxSample extends DefaultHandler{
 	private ArrayList<Integer> textReadLength = new ArrayList<Integer>();
 	private boolean isSurface = false;
 	private boolean isReading = false;
+	private boolean isPOS = false;
+	private String pos = "";
+	private String surface = "";
 	SaxSample(){
 		try {
 			File csv = new File("goi.csv"); // CSVデータファイル
@@ -63,6 +66,8 @@ public class SaxSample extends DefaultHandler{
 			isSurface = true;
 		}else if(qName.equals("Reading")){
 			isReading = true;
+		}else if(qName.equals("POS")){
+			isPOS = true;
 		}
 	}
 
@@ -74,15 +79,19 @@ public class SaxSample extends DefaultHandler{
 		//System.out.println("テキストデータ：" + new String(ch, offset, length));
 		String s =  new String(ch, offset, length);
 		if(isSurface){
-			tmp = tmp + s;
-			if(df.containsKey(s)){
-				scr += df.get(s);
-			}else{
-				scr += 6;
-			}
+			surface = s;
+			chunk = chunk + surface;
+//			if(df.containsKey(s)){
+//				scr += df.get(s);
+//			}else{
+//				scr += 6;
+//			}
 		}
 		if(isReading){
 			len += s.length();
+		}
+		if(isPOS){
+			pos = s;
 		}
 	}
 
@@ -95,14 +104,22 @@ public class SaxSample extends DefaultHandler{
 		if(qName.equals("Surface")){
 			isSurface = false;
 		}else if (qName.equals("Chunk")) {
-			result.add(tmp);
-			tmp = "";
+			result.add(chunk);
+			chunk = "";
 			score.add(scr);
 			scr = 0;
 			textReadLength.add(len);
 			len = 0;
 		}else if(qName.equals("Reading")){
 			isReading = false;
+		}else if(qName.equals("POS")){
+			if(!pos.equals("助詞")&&!pos.equals("特殊")&&!pos.equals("助動詞")){
+				if(df.containsKey(surface)){
+					scr += df.get(surface);
+				}else {
+					scr += 6;
+				}
+			}
 		}
 	}
 	//End of Document

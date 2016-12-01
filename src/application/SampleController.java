@@ -51,12 +51,21 @@ public class SampleController implements Initializable{
 	private Display d;
 	private ArrayList<String> NewsList = new ArrayList<>();
 	Calendar myCal = Calendar.getInstance();
-	DateFormat myFormat = new SimpleDateFormat("yyyyMMddHH");
+	DateFormat myFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 	String myName = myFormat.format(myCal.getTime()) + ".txt";
 	File file = new File(myName);
 	static PrintWriter pw = null;
 	@FXML
 	public void onClicked(ActionEvent event){
+		try {
+			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
 		if(event.getSource() == Button1){
 			d.setString(TextArea1.getText().replaceAll("\n", ""));
 		}else if(event.getSource() == Random){
@@ -86,6 +95,8 @@ public class SampleController implements Initializable{
 			pw.print(",4\n");
 		}
 		pw.close();
+		Random.setDisable(false);
+		Button1.setDisable(false);
 	}
 
 	@FXML
@@ -95,15 +106,6 @@ public class SampleController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file,true),"UTF-8")));
-		} catch (UnsupportedEncodingException e1) {
-			// TODO 自動生成された catch ブロック
-			e1.printStackTrace();
-		} catch (FileNotFoundException e1) {
-			// TODO 自動生成された catch ブロック
-			e1.printStackTrace();
-		}
 		d = new Display();
 		System.setProperty("file.encoding", "UTF8");
 		try{
@@ -167,15 +169,15 @@ public class SampleController implements Initializable{
 					final ArrayList<Integer> LengthList = sax.getTextReadLength();
 					java.util.Random rnd = new java.util.Random();
 					int lengthWeight = 10*rnd.nextInt(11);//0~100の10刻み
-					int scoreWeight = 5*rnd.nextInt(11);//0~50の5刻み
+					int scoreWeight = 10*rnd.nextInt(11);//0~50の5刻み
 					int baseTime = 50*rnd.nextInt(11);
 					for (int i=0;i<TextList.size();i++) {
 						displayText = TextList.get(i);
 						updateMessage(displayText);
 						//int textLength = displayText.length();
-						int textLength = LengthList.get(i);
+						int textLength = displayText.length();//LengthList.get(i);
 						int textScore = ScoreList.get(i);
-						//System.out.println(displayText + " " + textLength + " " + textScore);
+						System.out.println(displayText + " " + textLength + " " + textScore);
 						int displayTime = (int)(baseTime + lengthWeight*textLength + scoreWeight*textScore);
 						try {
 							Thread.sleep(displayTime);
