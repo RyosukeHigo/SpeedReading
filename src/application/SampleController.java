@@ -51,7 +51,7 @@ public class SampleController implements Initializable{
 	private Display d;
 	private ArrayList<String> NewsList = new ArrayList<>();
 	Calendar myCal = Calendar.getInstance();
-	DateFormat myFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+	DateFormat myFormat = new SimpleDateFormat("yyyy-MMdd-HHmmss");
 	String myName = myFormat.format(myCal.getTime()) + ".txt";
 	File file = new File(myName);
 	static PrintWriter pw = null;
@@ -170,7 +170,7 @@ public class SampleController implements Initializable{
 					java.util.Random rnd = new java.util.Random();
 					int lengthWeight = 10*rnd.nextInt(11);//0~100の10刻み
 					int scoreWeight = 10*rnd.nextInt(11);//0~50の5刻み
-					int baseTime = 50*rnd.nextInt(11);
+					int baseTime = 50*rnd.nextInt(6);
 					for (int i=0;i<TextList.size();i++) {
 						displayText = TextList.get(i);
 						updateMessage(displayText);

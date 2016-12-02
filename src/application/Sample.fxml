@@ -10,11 +10,11 @@
 
 <AnchorPane prefHeight="460.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
-      <Button fx:id="Random" layoutX="331.0" layoutY="364.0" mnemonicParsing="false" onAction="#onClicked" prefHeight="44.0" prefWidth="168.0" text="Random" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="331.0" AnchorPane.rightAnchor="101.0">
+      <Button fx:id="Random" layoutX="331.0" layoutY="364.0" mnemonicParsing="false" onAction="#onClicked" prefHeight="44.0" prefWidth="168.0" text="Random" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="101.0">
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Button fx:id="Button1" layoutX="96.0" layoutY="364.0" mnemonicParsing="false" onAction="#onClicked" prefHeight="25.0" prefWidth="152.0" text="Start" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="324.0">
+      <Button fx:id="Button1" layoutX="96.0" layoutY="364.0" mnemonicParsing="false" onAction="#onClicked" prefHeight="25.0" prefWidth="152.0" text="Start" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="96.0">
          <font>
             <Font size="20.0" />
          </font>
