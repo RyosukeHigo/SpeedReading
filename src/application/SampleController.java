@@ -171,6 +171,7 @@ public class SampleController implements Initializable{
 					int lengthWeight = 10*rnd.nextInt(11);//0~100の10刻み
 					int scoreWeight = 10*rnd.nextInt(11);//0~50の5刻み
 					int baseTime = 50*rnd.nextInt(6);
+					pw.print(baseTime+","+lengthWeight+","+scoreWeight);
 					for (int i=0;i<TextList.size();i++) {
 						displayText = TextList.get(i);
 						updateMessage(displayText);
@@ -186,7 +187,6 @@ public class SampleController implements Initializable{
 						}
 						//System.out.println(sld.getValue());
 					}
-					pw.print(baseTime+","+lengthWeight+","+scoreWeight);
 					return null;
 				}
 			};
