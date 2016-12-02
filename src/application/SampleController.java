@@ -31,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
@@ -48,6 +49,7 @@ public class SampleController implements Initializable{
 	@FXML private Button comfortable;
 	@FXML private Button fastish;
 	@FXML private Button fast;
+	@FXML private CheckBox proxyButton;
 	private Display d;
 	private ArrayList<String> NewsList = new ArrayList<>();
 	Calendar myCal = Calendar.getInstance();
@@ -79,6 +81,7 @@ public class SampleController implements Initializable{
 		Button1.setDisable(true);
 		d.setLabel(Label1);
 		d.setSlider(Slider1);
+		d.setCheckBox(proxyButton);
 		d.restart();
 	}
 	@FXML
@@ -132,6 +135,7 @@ public class SampleController implements Initializable{
 		Label l;
 		Slider sld;
 		Label min;
+		CheckBox cBox;
 		private String displayText = "";
 		private void setString(String s) {
 			this.s = s;
@@ -142,10 +146,13 @@ public class SampleController implements Initializable{
 		private void setSlider(Slider sld){
 			this.sld = sld;
 		}
+		private void setCheckBox(CheckBox cBox){
+			this.cBox = cBox;
+		}
 		protected Task<Void> createTask() {
 			return new Task<Void>() {
 				protected Void call() {
-					YahooAPI API = new YahooAPI(s);
+					YahooAPI API = new YahooAPI(s,cBox.isSelected());
 					try {
 						API.textAPI();
 					} catch (IOException e2) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
@@ -55,5 +56,6 @@
             <Button fx:id="fast" mnemonicParsing="false" onAction="#onClickedValue" text="速い" />
          </children>
       </HBox>
+      <CheckBox fx:id="proxyButton" layoutX="516.0" layoutY="347.0" mnemonicParsing="false" text="Use Proxy" AnchorPane.bottomAnchor="96.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
