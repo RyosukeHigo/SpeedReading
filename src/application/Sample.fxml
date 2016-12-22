@@ -56,6 +56,8 @@
             <Button fx:id="fast" mnemonicParsing="false" onAction="#onClickedValue" text="速い" />
          </children>
       </HBox>
-      <CheckBox fx:id="proxyButton" layoutX="516.0" layoutY="347.0" mnemonicParsing="false" text="Use Proxy" AnchorPane.bottomAnchor="96.0" AnchorPane.rightAnchor="10.0" />
+      <CheckBox fx:id="proxyButton" layoutX="517.0" layoutY="347.0" mnemonicParsing="false" text="Use Proxy" AnchorPane.bottomAnchor="96.0" AnchorPane.rightAnchor="32.0" />
+      <CheckBox fx:id="spaceBottun" layoutX="462.0" layoutY="332.0" mnemonicParsing="false" text="Space Key" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="32.0" />
+      <Button fx:id="toNext" layoutX="527.0" layoutY="411.0" mnemonicParsing="false" text="NEXT" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="28.0" />
    </children>
 </AnchorPane>

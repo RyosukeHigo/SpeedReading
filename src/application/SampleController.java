@@ -50,6 +50,8 @@ public class SampleController implements Initializable{
 	@FXML private Button fastish;
 	@FXML private Button fast;
 	@FXML private CheckBox proxyButton;
+	@FXML private CheckBox spaceButton;
+	@FXML private Button toNext;
 	private Display d;
 	private ArrayList<String> NewsList = new ArrayList<>();
 	Calendar myCal = Calendar.getInstance();
@@ -57,6 +59,7 @@ public class SampleController implements Initializable{
 	String myName = myFormat.format(myCal.getTime()) + ".txt";
 	File file = new File(myName);
 	static PrintWriter pw = null;
+	static boolean isNext = false;
 	@FXML
 	public void onClicked(ActionEvent event){
 		try {
@@ -81,8 +84,10 @@ public class SampleController implements Initializable{
 		Button1.setDisable(true);
 		d.setLabel(Label1);
 		d.setSlider(Slider1);
-		d.setCheckBox(proxyButton);
+		d.setProxyBox(proxyButton);
+		d.setSpaceBox(spaceButton);
 		d.restart();
+		toNext.requestFocus();
 	}
 	@FXML
 	public void onClickedValue(ActionEvent event){
@@ -106,39 +111,43 @@ public class SampleController implements Initializable{
 	public void onDragDetected() {
 		Speed.setText(String.valueOf((int)Slider1.getValue()));
 	}
-
+	@FXML
+	public void onPressed() {
+		isNext = true;
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		d = new Display();
 		System.setProperty("file.encoding", "UTF8");
 		try{
-			  File file = new File("s0-5.txt");
-			  BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
+			File file = new File("s0-5.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
 
-			  String str;
-			  while((str = br.readLine()) != null){
+			String str;
+			while((str = br.readLine()) != null){
 				//String tmp = new String(str.getBytes("UTF-8"), "UTF-8");
-			    NewsList.add(str);
-			  }
-
-			  br.close();
-			}catch(FileNotFoundException e){
-			  System.out.println(e);
-			}catch(IOException e){
-			  System.out.println(e);
+				NewsList.add(str);
 			}
+
+			br.close();
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+		}catch(IOException e){
+			System.out.println(e);
+		}
 		Label1.textProperty().bind(d.messageProperty());
 		Speed.setText(String.valueOf((int)Slider1.getValue()));
 	}
 	static class Display extends Service<Void> {
-		String s;
+		String inputText;
 		Label l;
 		Slider sld;
 		Label min;
-		CheckBox cBox;
+		CheckBox proxyBox;
+		CheckBox spaceBox;
 		private String displayText = "";
 		private void setString(String s) {
-			this.s = s;
+			this.inputText = s;
 		}
 		private void setLabel(Label l){
 			this.l = l;
@@ -146,13 +155,16 @@ public class SampleController implements Initializable{
 		private void setSlider(Slider sld){
 			this.sld = sld;
 		}
-		private void setCheckBox(CheckBox cBox){
-			this.cBox = cBox;
+		private void setProxyBox(CheckBox proxyBox){
+			this.proxyBox = proxyBox;
+		}
+		private void setSpaceBox(CheckBox spaceBox){
+			this.spaceBox = spaceBox;
 		}
 		protected Task<Void> createTask() {
 			return new Task<Void>() {
 				protected Void call() {
-					YahooAPI API = new YahooAPI(s,cBox.isSelected());
+					YahooAPI API = new YahooAPI(inputText,proxyBox.isSelected());
 					try {
 						API.textAPI();
 					} catch (IOException e2) {
@@ -178,8 +190,11 @@ public class SampleController implements Initializable{
 					int lengthWeight = 10*rnd.nextInt(11);//0~100の10刻み
 					int scoreWeight = 10*rnd.nextInt(11);//0~50の5刻み
 					int baseTime = 50*rnd.nextInt(6);
-					pw.print(baseTime+","+lengthWeight+","+scoreWeight);
+//					if(!spaceBox.isSelected()){
+//						pw.print(baseTime+","+lengthWeight+","+scoreWeight);
+//					}
 					for (int i=0;i<TextList.size();i++) {
+						System.out.println("test");
 						displayText = TextList.get(i);
 						updateMessage(displayText);
 						//int textLength = displayText.length();
@@ -187,10 +202,16 @@ public class SampleController implements Initializable{
 						int textScore = ScoreList.get(i);
 						System.out.println(displayText + " " + textLength + " " + textScore);
 						int displayTime = (int)(baseTime + lengthWeight*textLength + scoreWeight*textScore);
-						try {
-							Thread.sleep(displayTime);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+						if(false){//spaceBox.isSelected()==true){
+//							while(!isNext){
+//							}
+//							isNext = false;
+						}else{
+							try {
+								Thread.sleep(displayTime);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
 						//System.out.println(sld.getValue());
 					}
