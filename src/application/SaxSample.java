@@ -114,10 +114,10 @@ public class SaxSample extends DefaultHandler{
 			isReading = false;
 		}else if(qName.equals("POS")){
 			if(!pos.equals("助詞")&&!pos.equals("特殊")&&!pos.equals("助動詞")&&!pos.equals("接尾辞")){
-				if(df.containsKey(surface)){
-					scr += df.get(surface);
+				if(df.containsKey(surface)&&df.get(surface)>scr){
+					scr = df.get(surface);
 				}else {
-					scr += 6;
+					scr = 7;
 				}
 			}
 		}
