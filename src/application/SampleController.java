@@ -56,7 +56,7 @@ public class SampleController implements Initializable{
 	private ArrayList<String> NewsList = new ArrayList<>();
 	Calendar myCal = Calendar.getInstance();
 	DateFormat myFormat = new SimpleDateFormat("yyyy-MMdd-HHmmss");
-	String myName = myFormat.format(myCal.getTime()) + ".txt";
+	String myName = myFormat.format(myCal.getTime()) + ".csv";
 	File file = new File(myName);
 	static PrintWriter pw = null;
 	static boolean isNext = false;
@@ -75,7 +75,6 @@ public class SampleController implements Initializable{
 			d.setString(TextArea1.getText().replaceAll("\n", ""));
 		}else if(event.getSource() == Random){
 			java.util.Random rnd = new java.util.Random();
-
 			String news = NewsList.get(rnd.nextInt(NewsList.size()));
 			d.setString(news);
 			TextArea1.setText(news);
@@ -114,6 +113,7 @@ public class SampleController implements Initializable{
 	@FXML
 	public void onPressed() {
 		isNext = true;
+		//System.out.println(isNext);
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -163,7 +163,10 @@ public class SampleController implements Initializable{
 		}
 		protected Task<Void> createTask() {
 			return new Task<Void>() {
-				protected Void call() {
+				protected Void call() throws InterruptedException {
+					if(!spaceBox.isSelected()){
+						System.out.println("OK");
+					}
 					YahooAPI API = new YahooAPI(inputText,proxyBox.isSelected());
 					try {
 						API.textAPI();
@@ -183,29 +186,34 @@ public class SampleController implements Initializable{
 					} catch (SAXException | IOException e1) {
 						e1.printStackTrace();
 					}
-					final ArrayList<String> TextList = sax.getResult();
-					final ArrayList<Integer> ScoreList = sax.getScore();
-					final ArrayList<Integer> LengthList = sax.getTextReadLength();
+					ArrayList<String> TextList = sax.getResult();
+					ArrayList<Integer> ScoreList = sax.getScore();
+					ArrayList<Integer> LengthList = sax.getTextReadLength();
 					java.util.Random rnd = new java.util.Random();
 					int lengthWeight = 10*rnd.nextInt(11);//0~100の10刻み
 					int scoreWeight = 10*rnd.nextInt(11);//0~50の5刻み
 					int baseTime = 50*rnd.nextInt(6);
-//					if(!spaceBox.isSelected()){
-//						pw.print(baseTime+","+lengthWeight+","+scoreWeight);
-//					}
+					if(spaceBox.isSelected()==false){
+						pw.print(baseTime+","+lengthWeight+","+scoreWeight);
+					}
+					int a=0;
 					for (int i=0;i<TextList.size();i++) {
-						System.out.println("test");
 						displayText = TextList.get(i);
+						long start = System.currentTimeMillis();
 						updateMessage(displayText);
-						//int textLength = displayText.length();
 						int textLength = displayText.length();//LengthList.get(i);
 						int textScore = ScoreList.get(i);
 						System.out.println(displayText + " " + textLength + " " + textScore);
 						int displayTime = (int)(baseTime + lengthWeight*textLength + scoreWeight*textScore);
-						if(false){//spaceBox.isSelected()==true){
-//							while(!isNext){
-//							}
-//							isNext = false;
+						if(spaceBox.isSelected()==true){
+							while(true){
+								if(isNext){
+									isNext = false;
+									break;
+								}
+								Thread.sleep(1);
+							}
+
 						}else{
 							try {
 								Thread.sleep(displayTime);
@@ -213,7 +221,16 @@ public class SampleController implements Initializable{
 								e.printStackTrace();
 							}
 						}
+
+						//計測したい処理を記述
+
+						long end = System.currentTimeMillis();
+						System.out.println((end - start)  + "ms");
+						pw.println(end - start+","+textLength+","+","+LengthList.get(i)+","+ textScore);
 						//System.out.println(sld.getValue());
+					}
+					if(spaceBox.isSelected()){
+						pw.close();
 					}
 					return null;
 				}
