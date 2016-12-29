@@ -79,8 +79,8 @@ public class SampleController implements Initializable{
 			d.setString(news);
 			TextArea1.setText(news);
 		}
-		Random.setDisable(true);
-		Button1.setDisable(true);
+		//Random.setDisable(true);
+		//Button1.setDisable(true);
 		d.setLabel(Label1);
 		d.setSlider(Slider1);
 		d.setProxyBox(proxyButton);
@@ -102,8 +102,8 @@ public class SampleController implements Initializable{
 			pw.print(",4\n");
 		}
 		pw.close();
-		Random.setDisable(false);
-		Button1.setDisable(false);
+		//Random.setDisable(false);
+		//Button1.setDisable(false);
 	}
 
 	@FXML
@@ -169,7 +169,8 @@ public class SampleController implements Initializable{
 					}
 					YahooAPI API = new YahooAPI(inputText,proxyBox.isSelected());
 					try {
-						API.textAPI();
+						API.textAPI("parse");
+						API.textAPI("furigana");
 					} catch (IOException e2) {
 						e2.printStackTrace();
 					}
@@ -180,15 +181,17 @@ public class SampleController implements Initializable{
 					} catch (ParserConfigurationException | SAXException e1) {
 						e1.printStackTrace();
 					}
-					SaxSample sax = new SaxSample();
+					ParseSax psax = new ParseSax();
+					FuriganaSax fsax = new FuriganaSax();
 					try {
-						parser.parse(new File("test.xml"), sax);
+						parser.parse(new File("parse.xml"), psax);
+						//parser.parse(new File("furigana.xml"), fsax);
 					} catch (SAXException | IOException e1) {
 						e1.printStackTrace();
 					}
-					ArrayList<String> TextList = sax.getResult();
-					ArrayList<Integer> ScoreList = sax.getScore();
-					ArrayList<Integer> LengthList = sax.getTextReadLength();
+					ArrayList<String> TextList = psax.getResult();
+					ArrayList<Integer> ScoreList = psax.getScore();
+					ArrayList<Integer> LengthList = psax.getTextReadLength();
 					java.util.Random rnd = new java.util.Random();
 					int lengthWeight = 10*rnd.nextInt(11);//0~100の10刻み
 					int scoreWeight = 10*rnd.nextInt(11);//0~50の5刻み
@@ -226,7 +229,7 @@ public class SampleController implements Initializable{
 
 						long end = System.currentTimeMillis();
 						System.out.println((end - start)  + "ms");
-						pw.println(end - start+","+textLength+","+","+LengthList.get(i)+","+ textScore);
+						pw.println(end - start+","+textLength+","+LengthList.get(i)+","+ textScore);
 						//System.out.println(sld.getValue());
 					}
 					if(spaceBox.isSelected()){

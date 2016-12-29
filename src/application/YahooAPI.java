@@ -25,16 +25,23 @@ public class YahooAPI {
 	/**
 	 * Yahooテキスト分析APIのベースURI
 	 */
-	private static String BASE_URI = "http://jlp.yahooapis.jp/DAService/V1/parse";
+	private static String PARSE_URL = "http://jlp.yahooapis.jp/DAService/V1/parse";
+	private static String FURIGANA_URL = "http://jlp.yahooapis.jp/FuriganaService/V1/furigana";
+
 	YahooAPI(String input, boolean isChecked){
 		YahooAPI.input = input;
 		YahooAPI.isChecked = isChecked;
 	}
-	public void textAPI() throws IOException{
+	public void textAPI(String type) throws IOException{
 		String utf8 = new String(input.getBytes("UTF8"), "UTF8");
 		if(utf8 != null){
 			utf8 = URLEncoder.encode(utf8,"UTF8");
-			URL url = new URL(BASE_URI+"?appid="+APP_ID+"&sentence="+utf8);
+			URL url = null;
+			if(type.equals("parse")){
+				url = new URL(PARSE_URL+"?appid="+APP_ID+"&sentence="+utf8);
+			}else if(type.equals("furigana")){
+				url = new URL(FURIGANA_URL+"?appid="+APP_ID+"&sentence="+utf8);
+			}
 			Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy.uec.ac.jp", 8080));
 			HttpURLConnection urlconn;
 			if(isChecked){
@@ -56,13 +63,11 @@ public class YahooAPI {
 				}
 				responseBuffer.append(line);
 			}
-
 			reader.close();
 			urlconn.disconnect();
-
 			String response = responseBuffer.toString();
 			//System.out.println(response);
-			File file = new File("test.xml");
+			File file = new File(type +".xml");
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"UTF-8")));
 			pw.print(response);
 			pw.close();
