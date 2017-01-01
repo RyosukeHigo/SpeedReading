@@ -35,6 +35,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 public class SampleController implements Initializable{
 	@FXML private Button Button1;
 	@FXML private Label Label1;
@@ -54,10 +55,7 @@ public class SampleController implements Initializable{
 	@FXML private Button toNext;
 	private Display d;
 	private ArrayList<String> NewsList = new ArrayList<>();
-	Calendar myCal = Calendar.getInstance();
-	DateFormat myFormat = new SimpleDateFormat("yyyy-MMdd-HHmmss");
-	String myName = myFormat.format(myCal.getTime()) + ".csv";
-	File file = new File(myName);
+	File file = null;
 	static PrintWriter pw = null;
 	static boolean isNext = false;
 	@FXML
@@ -119,6 +117,14 @@ public class SampleController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		d = new Display();
 		System.setProperty("file.encoding", "UTF8");
+		Calendar myCal = Calendar.getInstance();
+		DateFormat myFormat = new SimpleDateFormat("yyyy-MMdd-HHmmss");
+		TextInputDialog userNameDialog  = new TextInputDialog( "InputYourName" );
+		userNameDialog.setTitle("Your Name");
+		userNameDialog.setHeaderText("Input your name!");
+	    String userName = userNameDialog.showAndWait().orElse("");
+		String myName = myFormat.format(myCal.getTime()) + userName +".csv";
+		file = new File(myName);
 		try{
 			File file = new File("s0-5.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
@@ -136,7 +142,9 @@ public class SampleController implements Initializable{
 			System.out.println(e);
 		}
 		Label1.textProperty().bind(d.messageProperty());
-		Speed.setText(String.valueOf((int)Slider1.getValue()));
+
+		//Speed.setText(String.valueOf((int)Slider1.getValue()));
+		spaceButton.setSelected(true);;
 	}
 	static class Display extends Service<Void> {
 		String inputText;
@@ -229,12 +237,17 @@ public class SampleController implements Initializable{
 
 						long end = System.currentTimeMillis();
 						System.out.println((end - start)  + "ms");
-						pw.println(end - start+","+textLength+","+LengthList.get(i)+","+ textScore);
+						String dicScore = "";
+						if(textScore<7&&textScore>0){
+							dicScore = String.valueOf(textScore);
+						}
+						pw.println(end - start+","+textLength+","+LengthList.get(i)+","+ textScore +","+ dicScore);
 						//System.out.println(sld.getValue());
 					}
 					if(spaceBox.isSelected()){
 						pw.close();
 					}
+					updateMessage("");
 					return null;
 				}
 			};
