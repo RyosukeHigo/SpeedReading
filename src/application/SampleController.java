@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.Character.UnicodeBlock;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -210,6 +211,12 @@ public class SampleController implements Initializable{
 					int a=0;
 					for (int i=0;i<TextList.size();i++) {
 						displayText = TextList.get(i);
+						int kanjiNum = 0;
+						for(int k=0;k<displayText.length();k++){
+							 if(UnicodeBlock.of(displayText.charAt(k)) == UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS){
+								 kanjiNum++;
+							 }
+						}
 						long start = System.currentTimeMillis();
 						updateMessage(displayText);
 						int textLength = displayText.length();//LengthList.get(i);
@@ -241,7 +248,7 @@ public class SampleController implements Initializable{
 						if(textScore<7&&textScore>0){
 							dicScore = String.valueOf(textScore);
 						}
-						pw.println(end - start+","+textLength+","+LengthList.get(i)+","+ textScore +","+ dicScore);
+						pw.println(end - start+","+textLength+","+LengthList.get(i)+","+kanjiNum+","+ textScore +","+ dicScore +","+displayText);
 						//System.out.println(sld.getValue());
 					}
 					if(spaceBox.isSelected()){
