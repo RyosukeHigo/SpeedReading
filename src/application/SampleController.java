@@ -209,6 +209,23 @@ public class SampleController implements Initializable{
 						pw.print(baseTime+","+lengthWeight+","+scoreWeight);
 					}
 					int a=0;
+					updateMessage("■スペースキーを押してスタート■");
+					if(spaceBox.isSelected()==true){
+						while(true){
+							if(isNext){
+								isNext = false;
+								break;
+							}
+							Thread.sleep(1);
+						}
+
+					}
+					updateMessage("3");
+					Thread.sleep(500);
+					updateMessage("2");
+					Thread.sleep(500);
+					updateMessage("1");
+					Thread.sleep(500);
 					for (int i=0;i<TextList.size();i++) {
 						displayText = TextList.get(i);
 						int kanjiNum = 0;
@@ -218,6 +235,7 @@ public class SampleController implements Initializable{
 							 }
 						}
 						long start = System.currentTimeMillis();
+						
 						updateMessage(displayText);
 						int textLength = displayText.length();//LengthList.get(i);
 						int textScore = ScoreList.get(i);
