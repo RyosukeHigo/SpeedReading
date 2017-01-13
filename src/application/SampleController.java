@@ -54,11 +54,13 @@ public class SampleController implements Initializable{
 	@FXML private CheckBox proxyButton;
 	@FXML private CheckBox spaceButton;
 	@FXML private Button toNext;
+	@FXML private Label bNum;
 	private Display d;
 	private ArrayList<String> NewsList = new ArrayList<>();
 	File file = null;
 	static PrintWriter pw = null;
 	static boolean isNext = false;
+	static int sumOfB=0;
 	@FXML
 	public void onClicked(ActionEvent event){
 		try {
@@ -84,6 +86,7 @@ public class SampleController implements Initializable{
 		d.setSlider(Slider1);
 		d.setProxyBox(proxyButton);
 		d.setSpaceBox(spaceButton);
+		d.setbNum(bNum);
 		d.restart();
 		toNext.requestFocus();
 	}
@@ -113,6 +116,9 @@ public class SampleController implements Initializable{
 	public void onPressed() {
 		isNext = true;
 		//System.out.println(isNext);
+		System.out.println(sumOfB
+				);
+		bNum.setText(String.valueOf(sumOfB));
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -154,6 +160,7 @@ public class SampleController implements Initializable{
 		Label min;
 		CheckBox proxyBox;
 		CheckBox spaceBox;
+		Label bNum;
 		private String displayText = "";
 		private void setString(String s) {
 			this.inputText = s;
@@ -169,6 +176,9 @@ public class SampleController implements Initializable{
 		}
 		private void setSpaceBox(CheckBox spaceBox){
 			this.spaceBox = spaceBox;
+		}
+		private void setbNum(Label bNum){
+			this.bNum = bNum;
 		}
 		protected Task<Void> createTask() {
 			return new Task<Void>() {
@@ -235,12 +245,13 @@ public class SampleController implements Initializable{
 							 }
 						}
 						long start = System.currentTimeMillis();
-						
+
 						updateMessage(displayText);
 						int textLength = displayText.length();//LengthList.get(i);
 						int textScore = ScoreList.get(i);
 						System.out.println(displayText + " " + textLength + " " + textScore);
 						int displayTime = (int)(baseTime + lengthWeight*textLength + scoreWeight*textScore);
+						sumOfB++;
 						if(spaceBox.isSelected()==true){
 							while(true){
 								if(isNext){
@@ -266,7 +277,7 @@ public class SampleController implements Initializable{
 						if(textScore<7&&textScore>0){
 							dicScore = String.valueOf(textScore);
 						}
-						pw.println(end - start+","+textLength+","+LengthList.get(i)+","+kanjiNum+","+ textScore +","+ dicScore +","+displayText);
+						pw.println(end - start-1+","+textLength+","+LengthList.get(i)+","+kanjiNum+","+ textScore +","+ dicScore +","+displayText);
 						//System.out.println(sld.getValue());
 					}
 					if(spaceBox.isSelected()){
