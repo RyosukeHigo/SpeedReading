@@ -2,9 +2,10 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -28,7 +29,8 @@ public class ParseSax extends DefaultHandler{
 	ParseSax(){
 		try {
 			File csv = new File("goi.csv"); // CSVデータファイル
-			BufferedReader br = new BufferedReader(new FileReader(csv));
+			//BufferedReader br = new BufferedReader(new FileReader(csv));
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csv),"UTF-8"));
 			// 最終行まで読み込む
 			String line = "";
 			while ((line = br.readLine()) != null) {
