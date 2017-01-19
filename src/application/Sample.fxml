@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -25,40 +26,40 @@
             <Font size="44.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="186.0" layoutY="104.0" prefHeight="17.0" AnchorPane.leftAnchor="186.0" AnchorPane.rightAnchor="185.47265625">
-         <children>
-            <Label text="SLOW" />
-            <Slider fx:id="Slider1" onMouseDragged="#onDragDetected" value="50.0" />
-            <Label text="FAST" />
-         </children>
-      </HBox>
       <TextArea fx:id="TextArea1" layoutX="53.0" layoutY="133.0" prefHeight="193.0" prefWidth="494.0" AnchorPane.bottomAnchor="134.0" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="53.0" AnchorPane.topAnchor="133.0" />
-      <HBox alignment="CENTER" layoutX="193.0" layoutY="58.0" spacing="20.0" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="170.47265625">
+      <HBox alignment="TOP_CENTER" layoutX="144.0" layoutY="341.0" prefHeight="30.0" prefWidth="259.0" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="197.0">
          <children>
-            <Label layoutX="164.0" layoutY="57.0" text="Speed">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="Speed" layoutX="234.0" layoutY="47.0" prefHeight="30.0" prefWidth="152.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-      <HBox alignment="TOP_CENTER" layoutX="174.0" layoutY="340.0" prefHeight="30.0" prefWidth="259.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="167.0">
-         <children>
-            <Button fx:id="slow" mnemonicParsing="false" onAction="#onClickedValue" text="遅い" />
-            <Button fx:id="slowish" mnemonicParsing="false" onAction="#onClickedValue" text="やや遅い" />
-            <Button fx:id="comfortable" mnemonicParsing="false" onAction="#onClickedValue" text="快適" />
-            <Button fx:id="fastish" mnemonicParsing="false" onAction="#onClickedValue" text="やや速い" />
-            <Button fx:id="fast" mnemonicParsing="false" onAction="#onClickedValue" text="速い" />
+            <TextField fx:id="aField" />
+            <TextField fx:id="bField" />
+            <TextField fx:id="dField" />
          </children>
       </HBox>
       <CheckBox fx:id="proxyButton" layoutX="517.0" layoutY="347.0" mnemonicParsing="false" text="Use Proxy" AnchorPane.bottomAnchor="96.0" AnchorPane.rightAnchor="32.0" />
       <CheckBox fx:id="spaceButton" layoutX="462.0" layoutY="332.0" mnemonicParsing="false" text="Space Key" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="32.0" />
       <Button fx:id="toNext" layoutX="527.0" layoutY="411.0" mnemonicParsing="false" onKeyTyped="#onPressed" text="NEXT" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="28.0" />
       <Label fx:id="bNum" layoutX="33.0" layoutY="341.0" text="0" AnchorPane.leftAnchor="33.0" />
+      <CheckBox fx:id="constButton" layoutX="403.0" layoutY="332.0" mnemonicParsing="false" text="固定幅モード" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="114.0" />
+      <Label layoutX="68.0" layoutY="74.0" prefHeight="30.0" prefWidth="152.0" text="A方式:文節調節" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="380.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="Speed" layoutX="37.0" layoutY="102.0" prefHeight="30.0" prefWidth="45.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="518.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="Speed2" layoutX="316.0" layoutY="102.0" prefHeight="30.0" prefWidth="45.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="239.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Slider fx:id="Slider1" blockIncrement="1.0" layoutX="102.0" layoutY="110.0" max="10.0" />
+      <Slider fx:id="Slider2" blockIncrement="1.0" layoutX="375.0" layoutY="110.0" max="10.0" />
+      <Label layoutX="379.0" layoutY="74.0" text="B方式:固定長" AnchorPane.leftAnchor="379.0" AnchorPane.rightAnchor="69.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
