@@ -99,13 +99,14 @@ public class SampleController implements Initializable{
 	}
 	@FXML
 	public void onClickedValue(ActionEvent event){
-
+		Slider1.setDisable(!Slider1.isDisable());
+		Slider2.setDisable(!Slider2.isDisable());
 	}
 
 	@FXML
 	public void onDragDetected() {
 		Speed.setText(String.valueOf((int)Slider1.getValue()));
-		//Speed2.setText(String.valueOf((int)Slider2.getValue()));
+		Speed2.setText(String.valueOf((int)Slider2.getValue()));
 	}
 	@FXML
 	public void onPressed() {
@@ -265,7 +266,6 @@ public class SampleController implements Initializable{
 								displayText = inputText.substring(lg*i, lg*(i+1));
 							}else{
 								displayText = inputText.substring(lg*i, inputText.length());
-								break;
 							}
 							displayTime = (int) (1050-50*(sld2.getValue()));
 							updateMessage(displayText);
@@ -274,6 +274,7 @@ public class SampleController implements Initializable{
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
+							if((i+1)*lg>=inputText.length()) break;
 							i++;
 						}
 					}else{

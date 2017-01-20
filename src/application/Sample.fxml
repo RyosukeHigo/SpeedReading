@@ -38,7 +38,7 @@
       <CheckBox fx:id="spaceButton" layoutX="462.0" layoutY="332.0" mnemonicParsing="false" text="Space Key" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="32.0" />
       <Button fx:id="toNext" layoutX="527.0" layoutY="411.0" mnemonicParsing="false" onKeyTyped="#onPressed" text="NEXT" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="28.0" />
       <Label fx:id="bNum" layoutX="33.0" layoutY="341.0" text="0" AnchorPane.leftAnchor="33.0" />
-      <CheckBox fx:id="constButton" layoutX="403.0" layoutY="332.0" mnemonicParsing="false" text="固定幅モード" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="114.0" />
+      <CheckBox fx:id="constButton" layoutX="403.0" layoutY="332.0" mnemonicParsing="false" onAction="#onClickedValue" text="固定幅モード" AnchorPane.bottomAnchor="111.0" AnchorPane.rightAnchor="114.0" />
       <Label layoutX="68.0" layoutY="74.0" prefHeight="30.0" prefWidth="152.0" text="A方式:文節調節" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="380.0">
          <font>
             <Font size="20.0" />
@@ -54,8 +54,8 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Slider fx:id="Slider1" blockIncrement="1.0" layoutX="102.0" layoutY="110.0" max="10.0" />
-      <Slider fx:id="Slider2" blockIncrement="1.0" layoutX="375.0" layoutY="110.0" max="10.0" />
+      <Slider fx:id="Slider1" blockIncrement="1.0" layoutX="102.0" layoutY="110.0" max="10.0" onMouseClicked="#onDragDetected" onMouseDragged="#onDragDetected" />
+      <Slider fx:id="Slider2" blockIncrement="1.0" disable="true" layoutX="375.0" layoutY="110.0" max="20.0" onMouseClicked="#onDragDetected" onMouseDragged="#onDragDetected" AnchorPane.leftAnchor="375.0" AnchorPane.rightAnchor="85.0" />
       <Label layoutX="379.0" layoutY="74.0" text="B方式:固定長" AnchorPane.leftAnchor="379.0" AnchorPane.rightAnchor="69.0">
          <font>
             <Font size="20.0" />
